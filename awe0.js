@@ -335,7 +335,7 @@ var ashimaWebGLEngine0 = new function() {
         throw("draw elements must must be of ELEMENT_ARRAY_BUFFER type");
       else {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, b);
-        gl.drawElements(type, (n || N), datatype, 0 );
+        gl.drawElements(type, (n || N*stride), datatype, 0 );
         }
       }
 
