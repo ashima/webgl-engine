@@ -66,6 +66,9 @@ var ashimaWebGLEngine0 = new function() {
         } 
       }
 
+    if (ops.hasOwnProperty("warningsAsErrors"))
+      A.warningsAsErrors = true;
+
     return gl;
     }
 
@@ -90,9 +93,12 @@ var ashimaWebGLEngine0 = new function() {
     gl.compileShader(shader);
     glThrow("Shader invalid");
 
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
-      throw ("Compile failed: "+gl.getShaderInfoLog(shader) );
+    var log = gl.getShaderInfoLog(shader);
 
+    if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == false 
+        || (A.warningsAsErrors && log) )
+      throw ("Compile failed: " + log );
+    
     return shader;
     }
 
@@ -112,8 +118,11 @@ var ashimaWebGLEngine0 = new function() {
     gl.linkProgram(p);
     glThrow("Program invalid");
 
-    if (!gl.getProgramParameter(p, gl.LINK_STATUS))
-      throw ("Link failed : " + gl.getProgramInfoLog(p)) ;
+    var log = gl.getProgramInfoLog(p) ;
+
+    if ( gl.getProgramParameter(p, gl.LINK_STATUS) == false
+        || (A.warningsAsErrors && log) )
+      throw ("Link failed : " + log) ;
 
     p.awe_gl = gl;
     p.aweUse = function() { p.awe_gl.useProgram(p); }
