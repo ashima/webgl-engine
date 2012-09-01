@@ -80,15 +80,15 @@ var ashimaWebGLEngine0 = new function() {
     if ( !gl )
       throw "No current GL context.";
     if ( !src )
-      throw "Invalide or missing shader source.";
+      throw "Invalid or missing shader source.";
     if ( !type )
-      throw "Invalide or missing shader type.";
+      throw "Invalid or missing shader type.";
 
     var shader = gl.createShader(type);
     glThrow("Unable to create a shader");
 
     gl.shaderSource(shader,src);
-    glThrow("Shader Source invalid");
+    glThrow("Shader source invalid");
 
     gl.compileShader(shader);
     glThrow("Shader invalid");
