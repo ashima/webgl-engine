@@ -173,8 +173,8 @@ var ashimaWebGLEngine0 = new function() {
     var F = {
       play: function() { 
         if (loop==noloop) { 
-          loop = function() { 
-            fun() || raf(loop,elem,dt);
+          loop = function() {
+              if (loop!=noloop) { fun() || raf(loop,elem,dt); }
             };
           loop();
           }
